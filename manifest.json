@@ -1,0 +1,12 @@
+{
+    "display_name": "Character Status",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "custom",
+    "version": "2.0.1",
+    "homePage": "",
+    "auto_update": true
+}
