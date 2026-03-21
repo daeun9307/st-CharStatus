@@ -33,9 +33,13 @@ Rules:
 - eggplant_talk: what cock would say to {{user}}. Funny+explicit+self-important. Max 60 chars.
 - size_diff: 3 sentences on physical size difference based on current pose/situation. Cute/funny. NONE if {{user}} not present.
 - size_diff_nsfw: 3 sentences on size difference in explicit sexual context. Very graphic. NONE if no sexual tension/activity.
-- THOUGHT: 2 secret thoughts, unfiltered, swearing OK
-- MOE keywords: with emoji, max 8 chars each
-- MOE_NPC: only if NPC appears. Crude/violent OK. Omit line entirely if no NPC.`;
+- IMPORTANT: ALL output text MUST be in Korean only. No English whatsoever.
+- IMPORTANT: ALL output text MUST be written in Korean only. No English.
+- THOUGHT: 2 secret thoughts, unfiltered, swearing OK, Korean only, in Korean
+- size_diff and size_diff_nsfw: in Korean only
+- MOE keywords: each keyword with emoji, max 6 Korean chars + 1 emoji. Use pipe | as separator between fields only, NOT within keyword text itself.
+- MOE_NPC: only if NPC appears. Crude/violent OK. Omit line entirely if no NPC.
+- CRITICAL: Every single text field MUST be written in Korean. No English allowed anywhere in output.`;
 
 const DEFAULTS = {
     enabled: true,
@@ -194,14 +198,14 @@ function dot(color) { return `<span style="display:inline-block;width:6px;height
 function statItem(label, value, valueColor, charName, charColor, comment, isLast) {
     return `<div style="padding:4px 0;${isLast?'':'border-bottom:0.5px solid rgba(0,0,0,0.06);'}">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:13px;color:#555;">${label}</span>
-        <span style="font-size:13px;font-weight:600;color:${valueColor};">${esc(value)}</span>
+        <span style="font-size:15px;color:#555;">${label}</span>
+        <span style="font-size:15px;font-weight:600;color:${valueColor};">${esc(value)}</span>
       </div>
-      <div style="font-size:11px;font-style:italic;color:${charColor};margin-top:2px;">${dot(charColor)}<span style="font-weight:600;">${charName} :</span> ${esc(comment)}</div>
+      <div style="font-size:13px;font-style:italic;color:${charColor};margin-top:3px;">${dot(charColor)}<span style="font-weight:600;">${charName} :</span> ${esc(comment)}</div>
     </div>`;
 }
 
-function kw(text, bg, color) { return `<span style="font-size:12px;background:${bg};border-radius:99px;padding:3px 9px;color:${color};font-weight:500;">${esc(text)}</span>`; }
+function kw(text, bg, color) { return `<span style="font-size:14px;background:${bg};border-radius:99px;padding:3px 10px;color:${color};font-weight:500;display:inline-block;margin:2px 0;">${esc(text)}</span>`; }
 
 function getCharInfo() {
     try { const c = SillyTavern.getContext(); const ch = c.characters?.[c.characterId]; return { name: ch?.name || '캐릭터' }; }
@@ -258,29 +262,29 @@ function renderBlock(block, charInfo, data) {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px;">
         <div style="background:#fff;border-radius:8px;padding:7px 10px;border:0.5px solid rgba(212,83,126,0.2);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
-            <span style="font-size:13px;color:#555;">🌶️ 흥분도</span><span style="font-size:13px;font-weight:600;color:#D4537E;">${esc(N.arousal||'0')}</span>
+            <span style="font-size:15px;color:#555;">🌶️ 흥분도</span><span style="font-size:15px;font-weight:600;color:#D4537E;">${esc(N.arousal||'0')}</span>
           </div>
-          <div style="font-size:11px;color:#bbb;font-style:italic;">🍆: "${esc(N.reason||'...')}"</div>
+          <div style="font-size:13px;color:#bbb;font-style:italic;">🍆: "${esc(N.reason||'...')}"</div>
         </div>
         <div style="background:#fff;border-radius:8px;padding:7px 10px;border:0.5px solid rgba(212,83,126,0.2);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
-            <span style="font-size:13px;color:#555;">🍆 남자의 자존심</span><span style="font-size:13px;font-weight:600;color:#993556;">${esc(N.cock||'잠잠')}</span>
+            <span style="font-size:15px;color:#555;">🍆 남자의 자존심</span><span style="font-size:15px;font-weight:600;color:#993556;">${esc(N.cock||'잠잠')}</span>
           </div>
-          <div style="font-size:11px;color:#bbb;font-style:italic;">🍆: "${esc(N.cock_comment||'...')}"</div>
+          <div style="font-size:13px;color:#bbb;font-style:italic;">🍆: "${esc(N.cock_comment||'...')}"</div>
         </div>
       </div>
       <div style="font-size:10px;font-weight:600;color:#D4537E;margin-bottom:5px;">💭 지금 하고 싶은 것</div>
-      ${N.act1 ? `<div style="background:#fff;border-radius:8px;padding:6px 10px;border:0.5px solid rgba(212,83,126,0.2);margin-bottom:4px;font-size:12px;color:#555;line-height:1.5;">🔥 ${esc(N.act1)}</div>` : ''}
-      ${N.act2 ? `<div style="background:#993556;border-radius:8px;padding:6px 10px;margin-bottom:6px;font-size:12px;color:rgba(255,255,255,0.95);line-height:1.5;">💥 ${esc(N.act2)}</div>` : ''}
+      ${N.act1 ? `<div style="background:#fff;border-radius:8px;padding:6px 10px;border:0.5px solid rgba(212,83,126,0.2);margin-bottom:4px;font-size:14px;color:#555;line-height:1.5;">🔥 ${esc(N.act1)}</div>` : ''}
+      ${N.act2 ? `<div style="background:#993556;border-radius:8px;padding:6px 10px;margin-bottom:6px;font-size:14px;color:rgba(255,255,255,0.95);line-height:1.5;">💥 ${esc(N.act2)}</div>` : ''}
       ${N.eggplant_talk ? `<div style="background:#fff;border-radius:8px;padding:8px 10px;border:0.5px solid rgba(212,83,126,0.25);">
         <div style="font-size:10px;font-weight:600;color:#993556;margin-bottom:4px;">🍆 잠깐, 나도 할 말 있음</div>
-        <div style="font-size:12px;color:#333;line-height:1.7;font-style:italic;">"${esc(N.eggplant_talk)}"</div>
+        <div style="font-size:14px;color:#333;line-height:1.7;font-style:italic;">"${esc(N.eggplant_talk)}"</div>
       </div>` : ''}
       ${(sizeDiffNsfw||sizeDiff) ? `
         <div style="height:0.5px;background:rgba(212,83,126,0.15);margin:8px 0;"></div>
         <div style="font-size:10px;font-weight:600;color:#993556;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">🫧 우리 사이 스케일</div>
         <div style="background:#fff;border-radius:10px;padding:9px 12px;border:0.5px solid rgba(212,83,126,0.2);">
-          <div style="font-size:12px;color:#555;line-height:1.8;">${esc(sizeDiffNsfw||sizeDiff)}</div>
+          <div style="font-size:14px;color:#555;line-height:1.8;">${esc(sizeDiffNsfw||sizeDiff)}</div>
         </div>` : ''}
     </div>
 
@@ -292,8 +296,8 @@ function renderBlock(block, charInfo, data) {
         <div style="display:flex;gap:8px;padding:5px 0;${i===0?'border-bottom:0.5px solid rgba(0,0,0,0.07);':''}">
           <span style="font-size:18px;flex-shrink:0;">${esc(t.emoji)}</span>
           <div>
-            <div style="font-size:13px;font-weight:500;color:#111;line-height:1.3;">${esc(t.main)}</div>
-            <div style="font-size:12px;color:#999;margin-top:2px;line-height:1.4;">${esc(t.detail)}</div>
+            <div style="font-size:15px;font-weight:500;color:#111;line-height:1.3;">${esc(t.main)}</div>
+            <div style="font-size:14px;color:#999;margin-top:3px;line-height:1.5;">${esc(t.detail)}</div>
           </div>
         </div>`).join('')}
     </div>
@@ -302,9 +306,6 @@ function renderBlock(block, charInfo, data) {
 
     <div style="background:#f0f7ff;padding:8px 14px;">
       <div style="font-size:10px;font-weight:600;color:#2563EB;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">🫧 지금 이 상태</div>
-      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
-        ${Object.values(data.moe||{}).map(v=>`<span style="background:#dbeafe;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:600;color:#1d4ed8;">${esc(v)}</span>`).join('')}
-      </div>
       ${data.moeUser ? `
         <div style="font-size:11px;font-weight:600;color:#60a5fa;margin-bottom:5px;">💙 ${esc(data.moeUser.name||'유저')}한테</div>
         <div style="background:#fff;border-radius:10px;padding:8px 10px;border:0.5px solid rgba(56,130,220,0.2);${data.moeNpc?'margin-bottom:8px;':''}">
